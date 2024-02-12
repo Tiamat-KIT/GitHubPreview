@@ -8,6 +8,11 @@ function App() {
   const BaseFetch = () => {
     const request = axios.create({
       baseURL: 'https://api.github.com',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `token  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`,
+      },
+      responseType: 'json',
     });
     request.get('/users/Tiamat-KIT').then((res) => {
       setGitData(res.data);
