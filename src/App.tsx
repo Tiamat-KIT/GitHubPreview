@@ -31,16 +31,15 @@ function App() {
     VercelRequest.get("/v4/aliases")
       .then(res => {
         setVercelResponseData(res.data)
-
       })
-      if(typeof window !== "undefined"){
-        const segmenter = new Intl.Segmenter("en", { granularity: "word" });
-        const RepoNames = RepoList.map((data) => data.name)
-        RepoNames.forEach((data) => console.log([...segmenter.segment(data)]))
-      }
   };
   useEffect(() => {
     BaseFetch();
+    if(typeof window !== "undefined"){
+      const segmenter = new Intl.Segmenter("en", { granularity: "word" });
+      const RepoNames = RepoList.map((data) => data.name)
+      RepoNames.forEach((data) => console.log([...segmenter.segment(data)]))
+    }
   }, []);
   return (
     <main>
