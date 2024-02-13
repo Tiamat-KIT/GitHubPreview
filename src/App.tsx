@@ -71,13 +71,11 @@ function App() {
           {VercelResponseData !== null &&
             VercelResponseData.aliases.map((data, idx) => {
               return (
-                <div key={idx} className='basis-1/2 bg-base-300'>
-                  <div className='card'>
+                  <div key={idx} className='card basis-1/2 bg-base-300'>
                     <div className='card-body'>
                       <h2 className='card-title'><a href={data.deployment.url}>{data.alias}</a></h2>
                     </div>
                   </div>
-                </div>
               );
             })}
         </div>
