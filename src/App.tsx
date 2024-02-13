@@ -36,9 +36,12 @@ function App() {
   useEffect(() => {
     BaseFetch();
     if(typeof window !== "undefined"){
+      const Start = performance.now()
+      console.log("計測スタート")
       const segmenter = new Intl.Segmenter("en", { granularity: "word" });
       const RepoNames = RepoList.map((data) => data.name)
-      RepoNames.forEach((data) => console.log([...segmenter.segment(data)]))
+      console.log("単語ごとに分けます")
+      RepoNames.forEach((data) => console.log(`この結果が出るまで${performance.now() - Start}sかかりました`,[...segmenter.segment(data)]))
     }
   }, []);
   return (
