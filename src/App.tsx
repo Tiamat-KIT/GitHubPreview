@@ -10,7 +10,7 @@ function App() {
       baseURL: 'https://api.github.com',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `token  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`,
+        // 'Authorization': `token  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`,
       },
       responseType: 'json',
     });
