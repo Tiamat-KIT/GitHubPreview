@@ -20,6 +20,14 @@ function App() {
     request.get('/users/Tiamat-KIT/repos').then((res) => {
       setRepoList(res.data as Repository[]);
     });
+    const VercelRequest = axios.create({
+      baseURL: "https://api.vercel.com",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer  KhczGTSGjXsYW06x3xxLA9J6`,
+        },
+    })
+    VercelRequest.get("/v4/aliases").then(res => console.log(res.data as VercelResponse)) 
   };
   useEffect(() => {
     BaseFetch();
