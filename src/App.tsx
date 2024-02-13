@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./globals.css"
 
 function App() {
   const [GitData, setGitData] = useState<User | null>(null);
@@ -33,7 +32,12 @@ function App() {
       .then(res => {
         setVercelResponseData(res.data)
 
-      }) 
+      })
+      if(typeof window !== "undefined"){
+        const segmenter = new Intl.Segmenter("en", { granularity: "word" });
+        const RepoNames = RepoList.map((data) => data.name)
+        RepoNames.forEach((data) => console.log([...segmenter.segment(data)]))
+      }
   };
   useEffect(() => {
     BaseFetch();
@@ -46,8 +50,7 @@ function App() {
           {RepoList !== null &&
             RepoList.map((data, idx) => {
               return (
-                <div key={idx} className='basis-1/2 bg-base-300'>
-                  <div className='card'>
+                  <div key={idx} className='card basis-1/2 bg-base-300'>
                     <div className='card-body'>
                       <h2 className='card-title'><a href={data.url}>{data.name}</a></h2>
                       <p>{data.description}</p>
@@ -57,10 +60,10 @@ function App() {
                       })}
                     </div>
                   </div>
-                </div>
               );
             })}
         </div>
+        
         {VercelResponseData !== null && <a className='hero text-3xl font-extrabold'>Tiamat-KIT Vercel Projects</a>}
         <div className='grid grid-cols-2 gap-4'>
           {VercelResponseData !== null &&
