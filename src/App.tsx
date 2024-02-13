@@ -5,6 +5,7 @@ import "./globals.css"
 function App() {
   const [GitData, setGitData] = useState<User | null>(null);
   const [RepoList, setRepoList] = useState<Repository[]>([]);
+  const [VercelResponseData,setVercelResponseData] = useState<VercelResponse | null>(null)
   const BaseFetch = () => {
     const request = axios.create({
       baseURL: 'https://api.github.com',
@@ -26,8 +27,13 @@ function App() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer KhczGTSGjXsYW06x3xxLA9J6`,
         },
+        responseType: "json"
     })
-    VercelRequest.get("/v4/aliases").then(res => console.log(res.data as VercelResponse)) 
+    VercelRequest.get("/v4/aliases")
+      .then(res => {
+        setVercelResponseData(res.data)
+
+      }) 
   };
   useEffect(() => {
     BaseFetch();
@@ -55,18 +61,21 @@ function App() {
               );
             })}
         </div>
-        
-        <button
-          type="button"
-          onClick={() => {
-            /* BaseFetch(); */
-            setTimeout(() => {
-              console.log(GitData, RepoList);
-            }, 750);
-          }}
-        >
-          クリックで取得
-        </button>
+        {VercelResponseData !== null && <a className='hero text-3xl font-extrabold'>Tiamat-KIT Vercel Projects</a>}
+        <div className='grid grid-cols-2 gap-4'>
+          {VercelResponseData !== null &&
+            VercelResponseData.aliases.map((data, idx) => {
+              return (
+                <div key={idx} className='basis-1/2 bg-base-300'>
+                  <div className='card'>
+                    <div className='card-body'>
+                      <h2 className='card-title'><a href={data.deployment.url}>{data.alias}</a></h2>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-interface VercelResponse{
+interface VercelProject {
     alias: string,
     created: string | number,
     createdAt: string | number,
@@ -13,4 +13,11 @@ interface VercelResponse{
     redirectStatusCode: null | number,
     uid: string,
     updatedAt: string | number
+}
+
+interface VercelResponse{
+    aliases: VercelProject[],
+    pagination:{
+        count: number, next: null | any, prev: number
+    }
 }
