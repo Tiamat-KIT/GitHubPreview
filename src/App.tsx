@@ -24,7 +24,7 @@ function App() {
       baseURL: "https://api.vercel.com",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer  KhczGTSGjXsYW06x3xxLA9J6`,
+          'Authorization': `Bearer KhczGTSGjXsYW06x3xxLA9J6`,
         },
     })
     VercelRequest.get("/v4/aliases").then(res => console.log(res.data as VercelResponse)) 
@@ -45,9 +45,9 @@ function App() {
                     <div className='card-body'>
                       <h2 className='card-title'><a href={data.url}>{data.name}</a></h2>
                       <p>{data.description}</p>
-                      <p>{data.fork && <div>フォークしたリポジトリです</div>}</p>
-                      {data.topics.map((tag) => {
-                        return (<p className='badge'>{tag}</p>)
+                      <p>{data.fork && "フォークしたリポジトリです"}</p>
+                      {data.topics.map((tag,badgeIdx) => {
+                        return (<p key={badgeIdx} className='badge'>{tag}</p>)
                       })}
                     </div>
                   </div>
@@ -55,6 +55,7 @@ function App() {
               );
             })}
         </div>
+        
         <button
           type="button"
           onClick={() => {
